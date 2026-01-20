@@ -1,0 +1,190 @@
+### Acessory Store API - Exemplos de Requisições
+
+# ============================================
+# AUTENTICAÇÃO
+# ============================================
+
+### Registrar novo usuário
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+  "email": "usuario@exemplo.com",
+  "password": "senha123",
+  "role": "user"
+}
+
+### Registrar novo admin
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@exemplo.com",
+  "password": "admin123",
+  "role": "admin"
+}
+
+### Login
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@exemplo.com",
+  "password": "admin123"
+}
+
+# ============================================
+# CATEGORIAS
+# ============================================
+
+### Listar categorias (público)
+GET http://localhost:5000/categories
+
+### Buscar categoria por ID (público)
+GET http://localhost:5000/categories/seu-uuid-aqui
+
+### Criar categoria (admin)
+POST http://localhost:5000/categories
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Pulseiras",
+  "slug": "pulseiras"
+}
+
+### Criar outra categoria (admin)
+POST http://localhost:5000/categories
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Colares",
+  "slug": "colares"
+}
+
+### Atualizar categoria (admin)
+PUT http://localhost:5000/categories/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Pulseiras Premium",
+  "slug": "pulseiras-premium"
+}
+
+### Deletar categoria (admin)
+DELETE http://localhost:5000/categories/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+
+# ============================================
+# PRODUTOS
+# ============================================
+
+### Listar produtos (público)
+GET http://localhost:5000/products
+
+### Buscar produto por ID (público)
+GET http://localhost:5000/products/seu-uuid-aqui
+
+### Criar produto (admin)
+POST http://localhost:5000/products
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Pulseira Premium",
+  "description": "Pulseira em aço inoxidável de alta qualidade com design minimalista",
+  "price": 150.00,
+  "category_id": "uuid-da-categoria-pulseiras",
+  "images": [
+    "https://images.example.com/pulseira1.jpg",
+    "https://images.example.com/pulseira2.jpg",
+    "https://images.example.com/pulseira3.jpg"
+  ]
+}
+
+### Criar outro produto (admin)
+POST http://localhost:5000/products
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Colar Dourado",
+  "description": "Colar elegante banhado a ouro 18k com detalhes em cristal",
+  "price": 280.00,
+  "category_id": "uuid-da-categoria-colares",
+  "images": [
+    "https://images.example.com/colar1.jpg",
+    "https://images.example.com/colar2.jpg"
+  ]
+}
+
+### Atualizar produto (admin) - Alterar dados básicos
+PUT http://localhost:5000/products/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "name": "Pulseira Premium Edition",
+  "description": "Pulseira em aço inoxidável com acabamento polido e garantia vitalícia",
+  "price": 199.90
+}
+
+### Atualizar produto (admin) - Adicionar imagens
+PUT http://localhost:5000/products/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "images": [
+    "https://images.example.com/pulseira-nova1.jpg",
+    "https://images.example.com/pulseira-nova2.jpg"
+  ]
+}
+
+### Atualizar produto (admin) - Remover e adicionar imagens
+PUT http://localhost:5000/products/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+Content-Type: application/json
+
+{
+  "images": [
+    "https://images.example.com/pulseira-nova3.jpg"
+  ],
+  "images_to_remove": [
+    "https://images.example.com/pulseira1.jpg"
+  ]
+}
+
+### Deletar produto (admin)
+DELETE http://localhost:5000/products/seu-uuid-aqui
+Authorization: Bearer seu_token_aqui
+
+# ============================================
+# TESTES - Health Check
+# ============================================
+
+### Verificar se servidor está rodando
+GET http://localhost:5000/
+
+### Testar rota inválida (deve retornar 404)
+GET http://localhost:5000/rota-inexistente
+
+# ============================================
+# NOTAS
+# ============================================
+# 
+# 1. Substitua "seu_token_aqui" pelo token obtido no login
+# 2. Substitua "seu-uuid-aqui" pelos UUIDs reais do banco de dados
+# 3. Use clientes HTTP como:
+#    - VS Code REST Client (extensão)
+#    - Postman
+#    - Insomnia
+#    - Thunder Client
+#
+# Para usar com REST Client do VS Code:
+# - Instale a extensão "REST Client"
+# - Clique no botão "Send Request" que aparece acima de cada requisição
+#
+# ============================================
